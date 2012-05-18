@@ -5,7 +5,7 @@
 #include "userattrib.h" /* The ADprogram API */
 #include "userViewGUI.h"
 
-/* Widgets for GUI */
+/* Calling Program for GUI */
 class ImportUsers;
 
 /* User edit class */
