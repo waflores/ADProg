@@ -129,8 +129,7 @@ void EditUsers::processChanges() {
         done.
      *
      */
-
-
+    
     if (uNameEdit->isModified()) {
             char * retval = NULL;
             retval = changeUserName(uNameEdit->text().toStdString().c_str(), current_person->user);
