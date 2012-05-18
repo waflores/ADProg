@@ -29,6 +29,8 @@ class QGridLayout;
 class QCheckBox;
 class ImportUsers;
 
+#define ABSTRACT 0
+
 /* Interface Mode Defines */
 #define EDIT_MODE 0
 #define ADD_USER_MODE 1
@@ -41,21 +43,22 @@ public:
     UserViewGUI(ImportUsers * prog, QWidget *parent = 0);
     ImportUsers * calling_prog;
 public slots:
-    /* The method that displays the user information from the */
-    /* Constructor's calling program.                         */
+    /* The method that displays the user information from the
+     * Constructor's calling program.
+     */
     void displayEdits(userList users);
 
     /* The Inherited Methods for what to when a GUI is instantiated. */
-    virtual void nextPerson() = 0;
-    virtual void prevPerson() = 0;
-    virtual void deletePerson()= 0;
-    virtual void editPerson() = 0;
-    virtual void submitChange() = 0;
-    virtual void cancelChange() = 0;
-    virtual void processChanges() = 0;
-    virtual void updateInterface(int mode) = 0;
+    virtual void nextPerson() = ABSTRACT;
+    virtual void prevPerson() = ABSTRACT;
+    virtual void deletePerson()= ABSTRACT;
+    virtual void editPerson() = ABSTRACT;
+    virtual void submitChange() = ABSTRACT;
+    virtual void cancelChange() = ABSTRACT;
+    virtual void processChanges() = ABSTRACT;
+    virtual void updateInterface(int mode) = ABSTRACT;
 
-private:
+protected:
     userList current_person; // current person in the editusers
     QGridLayout *editLayout1;
     QGridLayout *editLayout2;

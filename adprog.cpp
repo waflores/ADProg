@@ -20,13 +20,15 @@
 #include "editUsers.h"
 #include "userattrib.h"
 
+#define PROG_VERSION_NUM "1.0"
+
 
 /* ImportUsers Class: This class implements the main layout for the user to 
  *      interface with user information. 
  */
 ImportUsers::ImportUsers(QWidget *parent) : QWidget(parent) {
     // Set up Main layout
-    versionNum = "1.0";
+    versionNum = PROG_VERSION_NUM;
     QGridLayout *mainLayout = new QGridLayout;
     
     // Format Program Title
@@ -112,7 +114,8 @@ ImportUsers::ImportUsers(QWidget *parent) : QWidget(parent) {
     connect(options, SIGNAL(clicked()), this, SLOT(buttonStub()));
     
     // Load settings file for the program
-
+    // If the settings file doesn't exist, let a GUI come up and create
+    // a settings.dat file
     if (settingsFile() != SUCCESS) throw FAIL;
 
     // Set the people field to null
