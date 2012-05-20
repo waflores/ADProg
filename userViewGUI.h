@@ -32,9 +32,11 @@ class ImportUsers;
 #define ABSTRACT 0
 
 /* Interface Mode Defines */
-#define EDIT_MODE 0
-#define ADD_USER_MODE 1
-#define NAVIGATION_MODE 2
+#define EDIT_MODE_BUTTONS 0
+#define EDIT_MODE 1
+#define ADD_USER_MODE 2
+#define NAVIGATION_MODE_BUTTONS 3
+#define NAVIGATION_MODE 4
 
 /* User edit class */
 class UserViewGUI : public QWidget {

@@ -265,6 +265,7 @@ int appendToMasterLocList(Location place, locList * Master){
  * given a place name. The function returns NULL if the location is not found.
  */
 Location findLocation(const char * place, const locList locs){
+    if (!place || !strlen(place)) return NULL;
     locList p = locs;
     /* Start with the begining of the Locations linked list */
     while(p){
@@ -1266,10 +1267,16 @@ char * changePreferredName(const char * prefname, User person) {
     return newpref;
 }
 
+/* 5/19 - Changed the checking of newLocation before return */
 Location changeOfficeName(const char * officename, User person) {
-    if(person->loc) free(person->loc);
-    person->loc = findLocation(officename, MasterLocs);
-    return person->loc;
+    Location newLocation = NULL; /* The user's new location */
+    if(person->loc) {
+        free(person->loc); /* Free the user's old location */
+        person->loc = NULL;
+    }
+    newLocation = findLocation(officename, MasterLocs);
+    if (newLocation == NULL) return NULL;
+    else return person->loc;
 }
 
 char * changeProfilePath(const char * path, User person) {

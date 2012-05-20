@@ -62,7 +62,7 @@ void EditUsers::deletePerson(){
 }
 
 void EditUsers::editPerson(){
-    updateInterface(EDIT_MODE);
+    updateInterface(EDIT_MODE_BUTTONS);
 }
 void EditUsers::submitChange() {
     updateInterface(NAVIGATION_MODE);
@@ -72,7 +72,7 @@ void EditUsers::submitChange() {
 }
 
 void EditUsers::cancelChange() {
-    updateInterface(NAVIGATION_MODE);
+    updateInterface(NAVIGATION_MODE_BUTTONS);
 }
 
 void EditUsers::processChanges() {
@@ -131,10 +131,10 @@ void EditUsers::processChanges() {
      */
     
     if (uNameEdit->isModified()) {
-            char * retval = NULL;
-            retval = changeUserName(uNameEdit->text().toStdString().c_str(), current_person->user);
-            if (retval) QMessageBox::information(this, "User Name changed!", "Username has been changed.");
-            else QMessageBox::information(this, "User Name not changed!", "Username has not been changed.");
+        char * retval = NULL;
+        retval = changeUserName(uNameEdit->text().toStdString().c_str(), current_person->user);
+        if (retval) QMessageBox::information(this, "User Name changed!", "Username has been changed.");
+        else QMessageBox::information(this, "User Name not changed!", "Username has not been changed.");
     }
     if (FNameEdit->isModified()) {
         char * retval = NULL;
@@ -181,7 +181,7 @@ void EditUsers::processChanges() {
     if (officeNameView->isModified()) {
         // special case, needs to be carefully debugged
         Location retval = NULL;
-        //retval = changeOfficeName(officeNameView->text().toStdString().c_str(), current_person->user);
+        retval = changeOfficeName(officeNameView->text().toStdString().c_str(), current_person->user);
         if (retval) QMessageBox::information(this, "Office Name changed!", "Office Name has been changed.");
         else QMessageBox::information(this, "Office Name not changed!", "Office Name has not been changed.");
     }
@@ -211,14 +211,14 @@ void EditUsers::processChanges() {
 void EditUsers::updateInterface(int mode) {
     /* Decide which GUI attributes are active */
     switch (mode) {
-        case EDIT_MODE:
+        case EDIT_MODE_BUTTONS:
             /* Change the state of the buttons */
             nextRecord->hide();
             prevRecord->hide();
             editUser->hide();
             submitEdit->show();
             cancelEdit->show();
-
+        case EDIT_MODE: // falls through from Edit mode buttons
             /* Make everything editable */
             uNameEdit->setEnabled(true);
             FNameEdit->setEnabled(true);
@@ -242,13 +242,14 @@ void EditUsers::updateInterface(int mode) {
             //hDriveView->setEnabled(true);
             //dispNameView->setEnabled(true);
             break;
-        case NAVIGATION_MODE:
+        case NAVIGATION_MODE_BUTTONS:
             /* change the state of the buttons */
             nextRecord->show();
             prevRecord->show();
             editUser->show();
             submitEdit->hide();
             cancelEdit->hide();
+        case NAVIGATION_MODE: // Falls through from Navigation Mode
             /* make everything uneditable */
             uNameEdit->setEnabled(false);
             FNameEdit->setEnabled(false);
