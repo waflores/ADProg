@@ -663,8 +663,10 @@ userList batchImport(const char * fileStream){
     /* Open up the user's import file */
     inFile= fopen(fileStream, "rb");
     if (!inFile){ /* This checks if the file opened successfully */
+/*
         printf("batchImport_error: Cannot open user import file: %s.\r\n",
                 fileStream);
+*/
         return NULL; /* fopen failed */
     }
 
@@ -736,8 +738,10 @@ User addOneUser(char ** s) {
     /* Create a new person's record */
     newPerson = (User)malloc(sizeof(struct userBin));
     if(!newPerson){ /* This checks malloc for failure */
+/*
         printf("batchImport_error: Cannot create a new Person's record.\r\n");
         fflush(stdout);
+*/
         return NULL; /* malloc failed */
     }
 
@@ -746,126 +750,98 @@ User addOneUser(char ** s) {
         * faults.
         */
     while((userField < INCOLUMNS) && s[userField]){
+        /* Refactor the code so that certain instructions are not repeated :p */
         switch(userField){
             case 0: /* Insert username */
-            if(strcmp(s[userField],"*") != 0){
-                            newPerson->userName = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->userName, s[userField]);
-                        }
-                        else newPerson->userName = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 1: /* Insert first name */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->User.f_name = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->User.f_name, s[userField]);
-                        }
-                        else newPerson->User.f_name = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 2: /* Insert last name */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->User.L_name = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->User.L_name, s[userField]);
-                        }
-                        else newPerson->User.L_name = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 3: /* Insert email */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->email = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->email, s[userField]);
-                        }
-                        else newPerson->email = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 4: /* Insert title */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->title = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->title, s[userField]);
-                        }
-                        else newPerson->title = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 5: /* Insert department */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->dept = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->dept, s[userField]);
-                        }
-                        else newPerson->dept = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 6: /* Insert location */
-                        if(strcmp(s[userField], "*") != 0){
-                        /* find the location and append it to this record */
-                            newPerson->loc = findLocation(s[userField], MasterLocs);
-                        }
-                        else newPerson->loc = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 7: /* Insert password */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->password = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->password, s[userField]);
-                        }
-                        else newPerson->password = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 8: /* check the strlen and create the pref_name from that */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->User.pref_name = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->User.pref_name, s[userField]);
-                        }
-                        else {
-                            if(!newPerson->User.f_name){ /* The user's first name doesn't exist */
-                                newPerson->User.pref_name = NULL;
-                            }
-                            else newPerson->User.pref_name = newPerson->User.f_name;
-                        }
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 9: /* Insert middle name */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->User.m_name = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->User.m_name, s[userField]);
-                        }
-                        else newPerson->User.m_name = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    case 10: /* Insert modification attributes */
-                        if(strcmp(s[userField], "*") != 0){
-                            newPerson->mod = (char *)malloc(strlen(s[userField])+1);
-                            strcpy(newPerson->mod, s[userField]);
-                        }
-                        else newPerson->mod = NULL;
-                        free(s[userField]);
-                        s[userField] = NULL; /* terminates freed bucket */
-                        userField++;
-                        break;
-                    default: /* not a valid userField value */
-                        break;
+                if(strcmp(s[userField],"*") != 0){
+                    newPerson->userName = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->userName, s[userField]);
                 }
-            }
+                else newPerson->userName = NULL;
+                break;
+            case 1: /* Insert first name */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->User.f_name = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->User.f_name, s[userField]);
+                }
+                else newPerson->User.f_name = NULL;
+                break;
+            case 2: /* Insert last name */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->User.L_name = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->User.L_name, s[userField]);
+                }
+                else newPerson->User.L_name = NULL;
+                break;
+            case 3: /* Insert email */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->email = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->email, s[userField]);
+                }
+                else newPerson->email = NULL;
+                break;
+            case 4: /* Insert title */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->title = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->title, s[userField]);
+                }
+                else newPerson->title = NULL;
+                break;
+            case 5: /* Insert department */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->dept = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->dept, s[userField]);
+                }
+                else newPerson->dept = NULL;
+                break;
+            case 6: /* Insert location */
+                if(strcmp(s[userField], "*") != 0){
+                /* find the location and append it to this record */
+                    newPerson->loc = findLocation(s[userField], MasterLocs);
+                }
+                else newPerson->loc = NULL;
+                break;
+            case 7: /* Insert password */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->password = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->password, s[userField]);
+                }
+                else newPerson->password = NULL;
+                break;
+            case 8: /* check the strlen and create the pref_name from that */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->User.pref_name = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->User.pref_name, s[userField]);
+                }
+                else {
+                    if(!newPerson->User.f_name){ /* The user's first name doesn't exist */
+                        newPerson->User.pref_name = NULL;
+                    }
+                    else newPerson->User.pref_name = newPerson->User.f_name;
+                }
+                break;
+            case 9: /* Insert middle name */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->User.m_name = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->User.m_name, s[userField]);
+                }
+                else newPerson->User.m_name = NULL;
+                break;
+            case 10: /* Insert modification attributes */
+                if(strcmp(s[userField], "*") != 0){
+                    newPerson->mod = (char *)malloc(strlen(s[userField])+1);
+                    strcpy(newPerson->mod, s[userField]);
+                }
+                else newPerson->mod = NULL;
+                break;
+            default: /* not a valid userField value */
+                break;
+        } /* End of Switch */
+    /* Always Do the following after allocating a field*/
+    free(s[userField]);
+    s[userField] = NULL; /* terminates freed bucket */
+    userField++;
+}
 
             /* populate the other fields */
     if (s[INCOLUMNS]) {
@@ -898,8 +874,10 @@ User addOneUser(char ** s) {
             /* create the Active Directory attributes for this user */
             newPerson->attrib = (ADList)malloc(sizeof(struct ADlist));
             if(!newPerson->attrib){
+/*
                 printf("batchImport_error: Cannot create a new Person's record for %s.\r\n", newPerson->userName);
                 fflush(stdout);
+*/
                 return NULL; /* malloc failed */
             }
 
@@ -916,8 +894,10 @@ User addOneUser(char ** s) {
             }
             newPerson->attrib->profilePath = (char *)malloc(strlen(buffer)+1);
             if(!newPerson->attrib->profilePath){
+/*
                 printf("batchImport_error: Cannot add profile path to %s.\r\n", newPerson->userName);
                 fflush(stdout);
+*/
                 return NULL; /* malloc failed */
             }
             strcpy(newPerson->attrib->profilePath, buffer);
@@ -929,8 +909,10 @@ User addOneUser(char ** s) {
             }
             newPerson->attrib->homeDir = (char *)malloc(strlen(buffer)+1);
             if(!newPerson->attrib->homeDir){
+/*
                 printf("batchImport_error: Cannot add home directory to %s.\r\n", newPerson->userName);
                 fflush(stdout);
+*/
                 return NULL; /* malloc failed */
             }
             strcpy(newPerson->attrib->homeDir, buffer);
@@ -944,23 +926,28 @@ User addOneUser(char ** s) {
             strcat(buffer, MasterADlist->UPN);
             newPerson->attrib->UPN = (char *)malloc(strlen(buffer)+1);
             if(!newPerson->attrib->UPN){
+/*
                 printf("batchImport_error: Cannot add User Principal Name to %s.\r\n", newPerson->userName);
                 fflush(stdout);
+*/
                 return NULL; /* malloc failed */
             }
             strcpy(newPerson->attrib->UPN, buffer);
 
             /* Append the user information to the Global list */
             if(appendToMasterUsers(newPerson, &MasterUsers) != SUCCESS){
+/*
                 printf("batchImport_error: Cannot append %s to Master Users List.\r\n",
                         newPerson->userName);
                 fflush(stdout);
+*/
                 return NULL; /* appending the person to the list failed */
             }
             
     return newPerson;
 }
 
+/* Read K&R for a better deep freeing algorithm */
 int deleteAllUsers(userList users){ /* use a deep freeing algorithm */
     userList tmp;
     
@@ -1125,18 +1112,17 @@ char * changeFirstName(const char * firstname, User person) {
     int strSize = strlen(firstname)+1;
     int count;
 
+    oldfirstname = person->User.f_name;
+    if (oldfirstname) free(oldfirstname);
 
-        oldfirstname = person->User.f_name;
-        if (oldfirstname) free(oldfirstname);
+    newfirstname = (char *)malloc(strSize); /* Account for the null char */
+    if (!newfirstname) return NULL;
 
-        newfirstname = (char *)malloc(strSize); /* Account for the null char */
-        if (!newfirstname) return NULL;
+    /* Clear new string */
+    for(count = 0; count < strSize; ++count) newfirstname[count] = 0;
 
-        /* Clear new string */
-        for(count = 0; count < strSize; ++count) newfirstname[count] = 0;
-
-        if (strSize > 1) person->User.f_name = strcpy(newfirstname, firstname);
-        else person->User.f_name = NULL;
+    if (strSize > 1) person->User.f_name = strcpy(newfirstname, firstname);
+    else person->User.f_name = NULL;
 
     return newfirstname;
 }
@@ -1147,17 +1133,17 @@ char * changeLastName(const char * lastname, User person) {
     int strSize = strlen(lastname)+1;
     int count;
 
-        oldlastname = person->User.L_name;
-        if (oldlastname) free(oldlastname);
+    oldlastname = person->User.L_name;
+    if (oldlastname) free(oldlastname);
 
-        newlastname = (char *)malloc(strSize); /* Account for the null char */
-        if (!newlastname) return NULL;
+    newlastname = (char *)malloc(strSize); /* Account for the null char */
+    if (!newlastname) return NULL;
 
-        /* Clear new string */
-        for(count = 0; count < strSize; ++count) newlastname[count] = 0;
+    /* Clear new string */
+    for(count = 0; count < strSize; ++count) newlastname[count] = 0;
 
-        if (strSize > 1) person->User.L_name = strcpy(newlastname, lastname);
-        else person->User.L_name = NULL;
+    if (strSize > 1) person->User.L_name = strcpy(newlastname, lastname);
+    else person->User.L_name = NULL;
 
     return newlastname;
 }
@@ -1168,17 +1154,17 @@ char * changeMiddleName(const char * middlename, User person) {
     int strSize = strlen(middlename)+1;
     int count;
 
-        oldmiddlename = person->User.m_name;
-        if (oldmiddlename) free(oldmiddlename);
+    oldmiddlename = person->User.m_name;
+    if (oldmiddlename) free(oldmiddlename);
 
-        newmiddlename = (char *)malloc(strSize); /* Account for the null char */
-        if (!newmiddlename) return NULL;
+    newmiddlename = (char *)malloc(strSize); /* Account for the null char */
+    if (!newmiddlename) return NULL;
 
-        /* Clear new string */
-        for(count = 0; count < strSize; ++count) newmiddlename[count] = 0;
+    /* Clear new string */
+    for(count = 0; count < strSize; ++count) newmiddlename[count] = 0;
 
-        if (strSize > 1) person->User.m_name = strcpy(newmiddlename, middlename);
-        else person->User.m_name = NULL;
+    if (strSize > 1) person->User.m_name = strcpy(newmiddlename, middlename);
+    else person->User.m_name = NULL;
 
     return newmiddlename;
 }
@@ -1189,17 +1175,17 @@ char * changeInitials(const char * initials, User person) {
     int strSize = strlen(initials)+1;
     int count;
 
-        oldinitials = person->User.initials;
-        if (oldinitials) free(oldinitials);
+    oldinitials = person->User.initials;
+    if (oldinitials) free(oldinitials);
 
-        newinitials = (char *)malloc(strSize); /* Account for the null char */
-        if (!newinitials) return NULL;
+    newinitials = (char *)malloc(strSize); /* Account for the null char */
+    if (!newinitials) return NULL;
 
-        /* Clear new string */
-        for(count = 0; count < strSize; ++count) newinitials[count] = 0;
+    /* Clear new string */
+    for(count = 0; count < strSize; ++count) newinitials[count] = 0;
 
-        if (strSize > 1) person->User.initials = strcpy(newinitials, initials);
-        else person->User.initials = NULL;
+    if (strSize > 1) person->User.initials = strcpy(newinitials, initials);
+    else person->User.initials = NULL;
 
     return newinitials;
 }
@@ -1252,17 +1238,17 @@ char * changePreferredName(const char * prefname, User person) {
     int strSize = strlen(prefname)+1;
     int count;
 
-        oldpref = person->User.pref_name;
-        if (oldpref) free(oldpref);
+    oldpref = person->User.pref_name;
+    if (oldpref) free(oldpref);
 
-        newpref = (char *)malloc(strSize); /* Account for the null char */
-        if (!newpref) return NULL;
+    newpref = (char *)malloc(strSize); /* Account for the null char */
+    if (!newpref) return NULL;
 
-        /* Clear new string */
-        for(count = 0; count < strSize; ++count) newpref[count] = 0;
+    /* Clear new string */
+    for(count = 0; count < strSize; ++count) newpref[count] = 0;
 
-        if (strSize > 1) person->User.pref_name = strcpy(newpref, prefname);
-        else person->User.pref_name = NULL;
+    if (strSize > 1) person->User.pref_name = strcpy(newpref, prefname);
+    else person->User.pref_name = NULL;
 
     return newpref;
 }
@@ -1279,10 +1265,11 @@ Location changeOfficeName(const char * officename, User person) {
     else return person->loc;
 }
 
+/* This function hasn't been implemented yet */
 char * changeProfilePath(const char * path, User person) {
     return NULL;
 }
-
+/* This function hasn't been implemented yet */
 char * changeHomeDirectory(const char * homedir, User person) {
     return NULL;
 }
@@ -1328,4 +1315,3 @@ char * changePassword(const char * password, User person) {
 
     return newpassword;
 }
-

@@ -146,6 +146,8 @@ void ImportUsers::buttonStub() {
  * settingsFile: This function interacts with the userattrib API and couples
  *      a GUI component for the settings file to initialize global data.
  */
+// Give a third option to populate these fields if the settings file was corrupted
+// Then have this file be saved in the program's directory to be used again
 int ImportUsers::settingsFile() { // Load settings from default settings file
     int retval;
     QString fileName = "settings.dat";
@@ -183,6 +185,12 @@ int ImportUsers::settingsFile() { // Load settings from default settings file
  *      appropriate file.
  */
 QString ImportUsers::saveToFile() {
+    // Check to see whether there's people out there to export
+    if (!getuserCount()) {
+        QMessageBox::information(this, "No records in database...", 
+                "There are no records in database to export.");
+        return NULL;
+    }
     int retval; // check return value of exportUsers
     
     QString fileName = QFileDialog::getSaveFileName(this,
@@ -235,8 +243,10 @@ void ImportUsers::importToAD() {
         if(scriptName.isEmpty()) return;
         else{
             // from windows API
-            ShellExecuteA(NULL, NULL, scriptName.toAscii(), fileName.toAscii(), NULL, SW_SHOW);
-            QMessageBox::information(this, "Export Complete", "w00t");
+            ShellExecuteA(NULL, NULL, scriptName.toAscii(), fileName.toAscii(), 
+                    NULL, SW_SHOW);
+            QMessageBox::information(this, "Export Complete", 
+                    "The script was run successfully.");
         }
         
     }
