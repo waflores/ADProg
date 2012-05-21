@@ -135,43 +135,6 @@ UserViewGUI::UserViewGUI(ImportUsers * prog, QWidget *parent):QWidget(parent) {
     editLayout1->addWidget(pNameEdit, 2, 5, 1, 1);
     /* End building editLayout1 */
 
-    /* Build the navigation layout */
-    /* Build the previous record button */
-    prevRecord = new QPushButton("Previous");
-    prevRecord->show();
-
-    /* Build the next record button */
-    nextRecord = new QPushButton("Next");
-    nextRecord->show();
-
-    /* Build the delete record button */
-    delUser = new QPushButton("Delete User");
-    delUser->show();
-
-    /* Build the edit record button */
-    editUser = new QPushButton("Edit User");
-    editUser->show();
-
-    /* Build the submitEdit and cancelEdit Buttons, but hide these */
-    cancelEdit = new QPushButton("Cancel/Finish Edit");
-    cancelEdit->hide();
-
-    submitEdit = new QPushButton("Submit Edit");
-    submitEdit->hide();
-
-    /* navigation layout for submitEdit and cancelEdit buttons to reside */
-    navLayout = new QHBoxLayout;
-    navLayout->addWidget(prevRecord);
-    navLayout->addWidget(nextRecord);
-    navLayout->addWidget(delUser);
-    navLayout->addWidget(editUser);
-    navLayout->addWidget(submitEdit);
-    navLayout->addWidget(cancelEdit);
-
-    navLayout->setGeometry(QRect(200, 610, 161, 51));
-    navLayout->setContentsMargins(0, 0, 0, 0);
-    /* End navigation Layout */
-
     /* Build the viewOnlyLayout1 */
     viewOnlyLayout1 = new QGridLayout;
     viewOnlyLayout1->setContentsMargins(0, 0, 0, 0);
@@ -291,15 +254,6 @@ UserViewGUI::UserViewGUI(ImportUsers * prog, QWidget *parent):QWidget(parent) {
     mainLayout->addLayout(editLayout2, 2, 0, 1, 3);
     mainLayout->addLayout(viewOnlyLayout1, 3, 0, 1, 3);
     mainLayout->addLayout(viewOnlyLayout2, 4, 0, 1, 3);
-    mainLayout->addLayout(navLayout, 5, 0, 1, 3);
-
-    /* Connect some functions to the buttons on the GUI */
-    connect(nextRecord, SIGNAL(clicked()), this, SLOT(nextPerson()));
-    connect(prevRecord, SIGNAL(clicked()), this, SLOT(prevPerson()));
-    connect(delUser, SIGNAL(clicked()), this, SLOT(deletePerson()));
-    connect(editUser, SIGNAL(clicked()), this, SLOT(editPerson()));
-    connect(submitEdit, SIGNAL(clicked()), this, SLOT(submitChange()));
-    connect(cancelEdit, SIGNAL(clicked()), this, SLOT(cancelChange()));
 
     /* Populate the GUI on end of construction */
     displayEdits(calling_prog->dispPersonList());

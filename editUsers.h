@@ -14,6 +14,7 @@ class EditUsers : public UserViewGUI {
 public:
     EditUsers(ImportUsers * prog, QWidget *parent = 0);
 public slots:
+    /* The child class's methods for the editing of attributes */
     void nextPerson();
     void prevPerson();
     void deletePerson();
@@ -22,5 +23,13 @@ public slots:
     void cancelChange();
     void processChanges();
     void updateInterface(int mode);
+private:
+    QPushButton *cancelEdit;
+    QPushButton *submitEdit;
+    QPushButton *delUser;
+    QPushButton *editUser;
+    QPushButton *prevRecord;
+    QPushButton *nextRecord;
+    QHBoxLayout *navLayout;
 };
 #endif // EDITUSERS_H

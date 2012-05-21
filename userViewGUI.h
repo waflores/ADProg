@@ -50,16 +50,6 @@ public slots:
      */
     void displayEdits(userList users);
 
-    /* The Inherited Methods for what to when a GUI is instantiated. */
-    virtual void nextPerson() = ABSTRACT;
-    virtual void prevPerson() = ABSTRACT;
-    virtual void deletePerson()= ABSTRACT;
-    virtual void editPerson() = ABSTRACT;
-    virtual void submitChange() = ABSTRACT;
-    virtual void cancelChange() = ABSTRACT;
-    virtual void processChanges() = ABSTRACT;
-    virtual void updateInterface(int mode) = ABSTRACT;
-
 protected:
     userList current_person; // current person in the editusers
     QGridLayout *editLayout1;
@@ -67,7 +57,6 @@ protected:
     QGridLayout *viewOnlyLayout1;
     QGridLayout *mainLayout;
     QGridLayout *viewOnlyLayout2;
-    QHBoxLayout *navLayout;
     QCheckBox *ModCheck;
     QLabel *addrLabel;
     QLabel *cnLabel;
@@ -111,12 +100,6 @@ protected:
     QLineEdit *scriptPathView;
     QLineEdit *titleEdit;
     QLineEdit *uNameEdit;
-    QPushButton *cancelEdit;
-    QPushButton *submitEdit;
-    QPushButton *delUser;
-    QPushButton *editUser;
-    QPushButton *prevRecord;
-    QPushButton *nextRecord;
     QTextEdit *officeAddrDisp;
     QVBoxLayout *fileLayout;
     QVBoxLayout *recordLayout;
