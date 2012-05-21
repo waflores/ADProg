@@ -71,7 +71,6 @@ UserViewGUI::UserViewGUI(ImportUsers * prog, QWidget *parent):QWidget(parent) {
     /* Build the main window for the GUI */
     mainLayout = new QGridLayout;
     setLayout(mainLayout); // Couples the layout with the window that's showing
-    setWindowTitle("View and Edit users...");
 
     /* Build the top text fields in the GUI */
     editLayout1 = new QGridLayout;
@@ -254,9 +253,6 @@ UserViewGUI::UserViewGUI(ImportUsers * prog, QWidget *parent):QWidget(parent) {
     mainLayout->addLayout(editLayout2, 2, 0, 1, 3);
     mainLayout->addLayout(viewOnlyLayout1, 3, 0, 1, 3);
     mainLayout->addLayout(viewOnlyLayout2, 4, 0, 1, 3);
-
-    /* Populate the GUI on end of construction */
-    displayEdits(calling_prog->dispPersonList());
 }
 
 /***********************************************************************

@@ -1,5 +1,5 @@
 /* 
- * File:   adprog.c
+ * File:   adprog.cpp
  * Author: Will Flores
  * Usage:
  * Description: This file implements the functions and layout of the graphical
@@ -19,6 +19,7 @@
 #include "adprog.h"
 #include "editUsers.h"
 #include "userattrib.h"
+#include "addusers.h"
 
 #define PROG_VERSION_NUM "1.0"
 
@@ -187,7 +188,7 @@ int ImportUsers::settingsFile() { // Load settings from default settings file
 QString ImportUsers::saveToFile() {
     // Check to see whether there's people out there to export
     if (!getuserCount()) {
-        QMessageBox::information(this, "No records in database...", 
+        QMessageBox::information(this, "No users in database...", 
                 "There are no records in database to export.");
         return NULL;
     }
@@ -257,74 +258,76 @@ void ImportUsers::importToAD() {
  *      'addOneUser.' It allows the user to add a user one at a time.
  */
 void ImportUsers::addUserPerson() {
-    QStringList prompts;
-    QString input;
-    int peopleCount;
-    char ** str = NULL; // this is what's going to be passed to addUser_c function
-    User retval; 
-    bool ok;
-    QStringList inputArray;
-    prompts << "user name." << "first name." << "last name." << "email address.";
-    prompts << "title." << "department." << "office name." << "password.";
-    prompts << "preferred name." << "middle name." << "modify value (TRUE or FALSE).";
-    //prompts << "manager.";
-    
-    for (int index = 0; index < prompts.size(); ++index) {
-        input = QInputDialog::getText(this, "Input " + prompts.at(index),
-                                        "Please input " + prompts.at(index), 
-                                    QLineEdit::Normal, QDir::home().dirName(),
-                                    &ok);
-        
-        if (ok && !input.isEmpty()) {
-                inputArray << input.trimmed();
-        }
-        else {
-            QMessageBox cancelConfirm(this);
-            QPushButton * omitField = cancelConfirm.addButton("Omit", QMessageBox::ActionRole);
-            QPushButton * exitAdd = cancelConfirm.addButton(QMessageBox::Abort);
-            cancelConfirm.setWindowTitle("Leave Blank or Exit?");
-            cancelConfirm.setText("Click \"Omit\" to leave field blank or \"Abort\" to cancel adding a user.");
-            cancelConfirm.exec();
-            
-            // check the message box's ret val
-            if (cancelConfirm.clickedButton() == omitField) { 
-                inputArray << "*"; // push a star to omit field
-            }
-            else if (cancelConfirm.clickedButton() == exitAdd) {
-                QMessageBox::information(this, "User adding cancelled", "User was not added.");
-                return; // abort adding a person
-            }
-        }
-    }
-    
-        // convert the StringList to a char **
-    str = new char * [inputArray.size() + 1];
-    for (int i = 0; i < inputArray.size(); ++i) {
-        str[i] = new char[strlen(inputArray.at(i).toStdString().c_str()) + 1];
-        strcpy(str[i], inputArray.at(i).toStdString().c_str());
-    }
-    str[inputArray.size()] = ((char) NULL); // NULL Terminated array
-    // push these items into master user linked list
-
-    /******************************* get the people field filled **********************/
-    retval = addOneUser(str);
-    peopleCount = getuserCount();
-    if (peopleCount == 1) {
-        people = getMasterUserList();
-    }
-
-    /**************************/
-
-    // check return value of addOneUser
-    if (retval != NULL) QMessageBox::information(this, "User added", inputArray.at(0) + " was successfully added.");
-    else QMessageBox::information(this, "User not added", inputArray.at(0) + " was not added.");
-    //Delete the output array
-    int i = 0;
-    while (str[i]) {
-        delete str[i];
-        ++i;
-    }
-    delete str; // get rid of this string array when we're through with this
+    add_GUI = new AddUsers(this, 0);
+    add_GUI->show();
+//    QStringList prompts;
+//    QString input;
+//    int peopleCount;
+//    char ** str = NULL; // this is what's going to be passed to addUser_c function
+//    User retval; 
+//    bool ok;
+//    QStringList inputArray;
+//    prompts << "user name." << "first name." << "last name." << "email address.";
+//    prompts << "title." << "department." << "office name." << "password.";
+//    prompts << "preferred name." << "middle name." << "modify value (TRUE or FALSE).";
+//    //prompts << "manager.";
+//    
+//    for (int index = 0; index < prompts.size(); ++index) {
+//        input = QInputDialog::getText(this, "Input " + prompts.at(index),
+//                                        "Please input " + prompts.at(index), 
+//                                    QLineEdit::Normal, QDir::home().dirName(),
+//                                    &ok);
+//        
+//        if (ok && !input.isEmpty()) {
+//                inputArray << input.trimmed();
+//        }
+//        else {
+//            QMessageBox cancelConfirm(this);
+//            QPushButton * omitField = cancelConfirm.addButton("Omit", QMessageBox::ActionRole);
+//            QPushButton * exitAdd = cancelConfirm.addButton(QMessageBox::Abort);
+//            cancelConfirm.setWindowTitle("Leave Blank or Exit?");
+//            cancelConfirm.setText("Click \"Omit\" to leave field blank or \"Abort\" to cancel adding a user.");
+//            cancelConfirm.exec();
+//            
+//            // check the message box's ret val
+//            if (cancelConfirm.clickedButton() == omitField) { 
+//                inputArray << "*"; // push a star to omit field
+//            }
+//            else if (cancelConfirm.clickedButton() == exitAdd) {
+//                QMessageBox::information(this, "User adding cancelled", "User was not added.");
+//                return; // abort adding a person
+//            }
+//        }
+//    }
+//    
+//        // convert the StringList to a char **
+//    str = new char * [inputArray.size() + 1];
+//    for (int i = 0; i < inputArray.size(); ++i) {
+//        str[i] = new char[strlen(inputArray.at(i).toStdString().c_str()) + 1];
+//        strcpy(str[i], inputArray.at(i).toStdString().c_str());
+//    }
+//    str[inputArray.size()] = ((char) NULL); // NULL Terminated array
+//    // push these items into master user linked list
+//
+//    /******************************* get the people field filled **********************/
+//    retval = addOneUser(str);
+//    peopleCount = getuserCount();
+//    if (peopleCount == 1) {
+//        people = getMasterUserList();
+//    }
+//
+//    /**************************/
+//
+//    // check return value of addOneUser
+//    if (retval != NULL) QMessageBox::information(this, "User added", inputArray.at(0) + " was successfully added.");
+//    else QMessageBox::information(this, "User not added", inputArray.at(0) + " was not added.");
+//    //Delete the output array
+//    int i = 0;
+//    while (str[i]) {
+//        delete str[i];
+//        ++i;
+//    }
+//    delete str; // get rid of this string array when we're through with this
 
 }
 
@@ -333,6 +336,10 @@ void ImportUsers::addUserPerson() {
  *      'deleteAllUsers.' It allows the user to delete all the users on the heap.
  */
 void ImportUsers::deleteUserList() {
+    if (getuserCount() == 0) {
+        QMessageBox::information(this, "No users in database...", "There are no users to delete.");
+        return;
+    }
     int delval;
     int ret = QMessageBox::warning(this,"Delete all users", "Are you sure you want to delete all users?",
                         QMessageBox::Cancel, QMessageBox::Ok);

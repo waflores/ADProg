@@ -14,6 +14,7 @@ EditUsers::EditUsers(ImportUsers * prog, QWidget *parent):UserViewGUI(prog, pare
  /* This Object calls the super class, so that the user database displays users
   * to be edited.
   */       
+    setWindowTitle("View and Edit users...");
     /* Build the navigation layout */
     /* Build the previous record button */
     prevRecord = new QPushButton("Previous");
@@ -59,6 +60,9 @@ EditUsers::EditUsers(ImportUsers * prog, QWidget *parent):UserViewGUI(prog, pare
     connect(editUser, SIGNAL(clicked()), this, SLOT(editPerson()));
     connect(submitEdit, SIGNAL(clicked()), this, SLOT(submitChange()));
     connect(cancelEdit, SIGNAL(clicked()), this, SLOT(cancelChange()));
+    
+    /* Populate the GUI on end of construction */
+    displayEdits(calling_prog->dispPersonList());
 }
 
 /****************** EDITUSER MEMBER FUNCTIONS *******************************/
@@ -87,7 +91,8 @@ void EditUsers::prevPerson(){
 }
 
 void EditUsers::deletePerson(){
-    int ret = QMessageBox::warning(this,"Delete this User", "Are you sure you want to delete this user?",
+    int ret;
+    ret = QMessageBox::warning(this,"Delete this User", "Are you sure you want to delete this user?",
                         QMessageBox::Cancel, QMessageBox::Ok);
     switch(ret){
         case QMessageBox::Ok:
