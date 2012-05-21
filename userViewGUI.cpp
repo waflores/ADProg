@@ -400,16 +400,14 @@ void UserViewGUI::displayEdits(userList users) {
     /* end person's office info */
 
     /* Display the office info */
-    /* check to see if there exists a place to avoid segfaults 5_20 */
-    if (place) {
-        officeNameView->setText(place);
-        officeAddrDisp->clear();
-        officeAddrDisp->append(streetAddr);
-        officeAddrDisp->append(city);
-        officeAddrDisp->append(state);
-        officeAddrDisp->append(zip);
-        officeAddrDisp->append(country);
-    }
+    officeNameView->setText(place);
+    officeAddrDisp->clear();
+    officeAddrDisp->append(streetAddr);
+    officeAddrDisp->append(city);
+    officeAddrDisp->append(state);
+    officeAddrDisp->append(zip);
+    officeAddrDisp->append(country);
+
     /* Retrieve person's AD attributes */
     scriptPath = dispScriptPath(users->user);
     homeDrive = dispHomeDrive(users->user);

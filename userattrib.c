@@ -25,6 +25,10 @@ int userCount = 0; /* Count user nodes */
 static const int INCOLUMNS = 11; /* define the number of columns in the input file */
 static const int OUTCOLUMNS = 26; /* define the number of columns in the output file */
 
+/* Location defines*/
+#define LOCATION_NOT_FOUND NULL
+#define CLEAR_LOCATION LOCATION_NOT_FOUND
+
 /* User's name */
 struct name{
     char * f_name;  /* first name */
@@ -104,16 +108,20 @@ int getSettings(const char * file, const char * prog){
     /* Create the Particulars List */
     MasterPart = createMasterParticulars();
     if (!MasterPart){
+/*
         printf("getSettings_error: Master Particulars List was not created.\r\n");
         fflush(stdout);
+*/
         return FAIL; /* malloc failed */
     }
 
     /* Create the Master Active Directory attributes list */
     MasterADlist = createMasterADList();
     if(!MasterADlist){
+/*
         printf("getSettings_error: Master Active Directory List was not created.\r\n");
         fflush(stdout);
+*/
         return FAIL;
     }
 
@@ -175,8 +183,10 @@ int getSettings(const char * file, const char * prog){
             /* Create a new location bin */
             place = (Location)malloc(sizeof(struct location));
             if(!place) { /* error checking code */;
+/*
                 printf("getSettings_error: a Location could not be allocated.");
                 fflush(stdout);
+*/
                 return FAIL;
             }
             fieldCount = 0; /* initialize the field count */
@@ -220,8 +230,10 @@ int getSettings(const char * file, const char * prog){
             }
             /* End of location retrieval append to Global list of locations */
             if(appendToMasterLocList(place, &MasterLocs) != SUCCESS) {
+/*
                 printf("getSettings_error: %s was not appended to the Master Location List.\r\n", place->place);
                 fflush(stdout);
+*/
                 return FAIL;
             }
         }
@@ -242,8 +254,10 @@ int appendToMasterLocList(Location place, locList * Master){
 
     /* Check if new node has been created */
     if(!newList){
+/*
         printf("appendToMasterLocList_error: Cannot create a node for the Locations Linked List.\r\n");
         fflush(stdout);
+*/
         return FAIL;
     }
 
@@ -261,25 +275,6 @@ int appendToMasterLocList(Location place, locList * Master){
     return SUCCESS;
 }
 
-/* findLocation: This function will return the location information for a user
- * given a place name. The function returns NULL if the location is not found.
- */
-Location findLocation(const char * place, const locList locs){
-    if (!place || !strlen(place)) return NULL;
-    locList p = locs;
-    /* Start with the begining of the Locations linked list */
-    while(p){
-        /* Try to match the place name with the ones in the linked list */
-        if(strcasecmp(dispPlace(p->loc), place) == 0){
-            /* We have a match! */
-            return p->loc;
-        }
-        /* We didn't find it, move to the next one */
-        p = p->next;
-    }
-    /* Either the Locations Linked List doesn't exist or we didn't get a match */
-    return NULL;
-}
 
 /* errorCheck: This function will check whether or not critical parts of the settings
  * file were imported into the program's memory. This allows the user to input
@@ -472,9 +467,11 @@ Particulars createMasterParticulars(void){
     Particulars p = (Particulars) malloc(sizeof(struct particulars));
     /* Check if we created a Master Particulars list */
     if (!p){
+/*
         printf("createMasterParticulars_error: Cannot create Master Particulars List.\r\n");
         fflush(stdout);
-        return (void *) FAIL; /* malloc failed */
+*/
+        return (Particulars) FAIL; /* malloc failed */
     }
     return p;
 }
@@ -486,9 +483,11 @@ ADList createMasterADList(void) {
     ADList p = (ADList) malloc(sizeof(struct ADlist));
     /* Check if we created a Master AD list */
     if(!p){
+/*
         printf("createMasterADList_error: Cannot create Master Active Directory List.\r\n");
         fflush(stdout);
-        return (void *) FAIL;
+*/
+        return (ADList) FAIL;
     }
     return p;
 }
@@ -700,9 +699,11 @@ int appendToMasterUsers(User person, userList * Master){
     /* New user node */
     newNode = (userList)malloc(sizeof(struct userNode));
     if(!newNode){
+/*
         printf("appendToMasterUsers_error: Cannot create a new Person's record for %s.\r\n",
                 person->userName);
         fflush(stdout);
+*/
         return FAIL; /* malloc failed */
     }
     /* Initialize user node pointers */
@@ -837,11 +838,11 @@ User addOneUser(char ** s) {
             default: /* not a valid userField value */
                 break;
         } /* End of Switch */
-    /* Always Do the following after allocating a field*/
-    free(s[userField]);
-    s[userField] = NULL; /* terminates freed bucket */
-    userField++;
-}
+        /* Always Do the following after allocating a field*/
+        free(s[userField]);
+        s[userField] = NULL; /* terminates freed bucket */
+        userField++;
+    }
 
             /* populate the other fields */
     if (s[INCOLUMNS]) {
@@ -850,99 +851,101 @@ User addOneUser(char ** s) {
     }
     else newPerson->manager = NULL;
     
-            /* create the person's initials */
-            newPerson->User.initials = (char *)malloc(6*sizeof(char));
-            if(!newPerson->User.initials){
-                printf("batchImport_error: Cannot create a new Person's initials for %s.\r\n", newPerson->userName);
-                fflush(stdout);
-                return NULL; /* malloc failed */
-            }
-            memset(newPerson->User.initials, 0, 6*sizeof(char));
-            if(newPerson->User.f_name){
-                newPerson->User.initials[0] = newPerson->User.f_name[0];
-                strcat(newPerson->User.initials, ". ");
-            }
-            else if(newPerson->User.m_name){
-                newPerson->User.initials[0] = newPerson->User.m_name[0];
-                strcat(newPerson->User.initials, ".");
-            }
-             if (newPerson->User.f_name && newPerson->User.m_name){
-                 newPerson->User.initials[3] = newPerson->User.m_name[0];
-                 strcat(newPerson->User.initials, ".");
-             }
-
-            /* create the Active Directory attributes for this user */
-            newPerson->attrib = (ADList)malloc(sizeof(struct ADlist));
-            if(!newPerson->attrib){
+    /* create the person's initials */
+    newPerson->User.initials = (char *)malloc(6*sizeof(char));
+    if(!newPerson->User.initials){
 /*
-                printf("batchImport_error: Cannot create a new Person's record for %s.\r\n", newPerson->userName);
-                fflush(stdout);
+        printf("batchImport_error: Cannot create a new Person's initials for %s.\r\n", newPerson->userName);
+        fflush(stdout);
 */
-                return NULL; /* malloc failed */
-            }
+        return NULL; /* malloc failed */
+    }
+    memset(newPerson->User.initials, 0, 6*sizeof(char));
+    if(newPerson->User.f_name){
+        newPerson->User.initials[0] = newPerson->User.f_name[0];
+        strcat(newPerson->User.initials, ". ");
+    }
+    else if(newPerson->User.m_name){
+        newPerson->User.initials[0] = newPerson->User.m_name[0];
+        strcat(newPerson->User.initials, ".");
+    }
+        if (newPerson->User.f_name && newPerson->User.m_name){
+            newPerson->User.initials[3] = newPerson->User.m_name[0];
+            strcat(newPerson->User.initials, ".");
+        }
 
-            /* Establish common Script path, home drive, and description */
-            newPerson->attrib->scriptPath = MasterADlist->scriptPath;
-            newPerson->attrib->homeDrive = MasterADlist->homeDrive;
-            newPerson->desc = MasterPart->desc;
-
-            /* Establish unique profile path */
-            strcpy(buffer, MasterADlist->profilePath);
-            
-            if(newPerson->userName){
-                strcat(buffer, newPerson->userName);
-            }
-            newPerson->attrib->profilePath = (char *)malloc(strlen(buffer)+1);
-            if(!newPerson->attrib->profilePath){
+    /* create the Active Directory attributes for this user */
+    newPerson->attrib = (ADList)malloc(sizeof(struct ADlist));
+    if(!newPerson->attrib){
 /*
-                printf("batchImport_error: Cannot add profile path to %s.\r\n", newPerson->userName);
-                fflush(stdout);
+        printf("batchImport_error: Cannot create a new Person's record for %s.\r\n", newPerson->userName);
+        fflush(stdout);
 */
-                return NULL; /* malloc failed */
-            }
-            strcpy(newPerson->attrib->profilePath, buffer);
+        return NULL; /* malloc failed */
+    }
 
-            /* Establish unique home directory */
-            strcpy(buffer, MasterADlist->homeDir);
-            if(newPerson->userName){
-                strcat(buffer, newPerson->userName);
-            }
-            newPerson->attrib->homeDir = (char *)malloc(strlen(buffer)+1);
-            if(!newPerson->attrib->homeDir){
+    /* Establish common Script path, home drive, and description */
+    newPerson->attrib->scriptPath = MasterADlist->scriptPath;
+    newPerson->attrib->homeDrive = MasterADlist->homeDrive;
+    newPerson->desc = MasterPart->desc;
+
+    /* Establish unique profile path */
+    strcpy(buffer, MasterADlist->profilePath);
+
+    if(newPerson->userName){
+        strcat(buffer, newPerson->userName);
+    }
+    newPerson->attrib->profilePath = (char *)malloc(strlen(buffer)+1);
+    if(!newPerson->attrib->profilePath){
 /*
-                printf("batchImport_error: Cannot add home directory to %s.\r\n", newPerson->userName);
-                fflush(stdout);
+        printf("batchImport_error: Cannot add profile path to %s.\r\n", newPerson->userName);
+        fflush(stdout);
 */
-                return NULL; /* malloc failed */
-            }
-            strcpy(newPerson->attrib->homeDir, buffer);
+        return NULL; /* malloc failed */
+    }
+    strcpy(newPerson->attrib->profilePath, buffer);
 
-            /* Establish user principal name */
-            if(newPerson->userName){
-                strcpy(buffer, newPerson->userName);
-            }
-            else memset(buffer, 0, MAXLEN);
-
-            strcat(buffer, MasterADlist->UPN);
-            newPerson->attrib->UPN = (char *)malloc(strlen(buffer)+1);
-            if(!newPerson->attrib->UPN){
+    /* Establish unique home directory */
+    strcpy(buffer, MasterADlist->homeDir);
+    if(newPerson->userName){
+        strcat(buffer, newPerson->userName);
+    }
+    newPerson->attrib->homeDir = (char *)malloc(strlen(buffer)+1);
+    if(!newPerson->attrib->homeDir){
 /*
-                printf("batchImport_error: Cannot add User Principal Name to %s.\r\n", newPerson->userName);
-                fflush(stdout);
+        printf("batchImport_error: Cannot add home directory to %s.\r\n", newPerson->userName);
+        fflush(stdout);
 */
-                return NULL; /* malloc failed */
-            }
-            strcpy(newPerson->attrib->UPN, buffer);
+        return NULL; /* malloc failed */
+    }
+    strcpy(newPerson->attrib->homeDir, buffer);
 
-            /* Append the user information to the Global list */
-            if(appendToMasterUsers(newPerson, &MasterUsers) != SUCCESS){
+    /* Establish user principal name */
+    if(newPerson->userName){
+        strcpy(buffer, newPerson->userName);
+    }
+    else memset(buffer, 0, MAXLEN);
+
+    strcat(buffer, MasterADlist->UPN);
+    newPerson->attrib->UPN = (char *)malloc(strlen(buffer)+1);
+    if(!newPerson->attrib->UPN){
 /*
-                printf("batchImport_error: Cannot append %s to Master Users List.\r\n",
-                        newPerson->userName);
-                fflush(stdout);
+        printf("batchImport_error: Cannot add User Principal Name to %s.\r\n", newPerson->userName);
+        fflush(stdout);
 */
-                return NULL; /* appending the person to the list failed */
-            }
+        return NULL; /* malloc failed */
+    }
+    strcpy(newPerson->attrib->UPN, buffer);
+
+    /* Append the user information to the Global list */
+    if(appendToMasterUsers(newPerson, &MasterUsers) != SUCCESS){
+/*
+        printf("batchImport_error: Cannot append %s to Master Users List.\r\n",
+                newPerson->userName);
+        fflush(stdout);
+*/
+        return NULL; /* appending the person to the list failed */
+    }
             
     return newPerson;
 }
@@ -1253,16 +1256,36 @@ char * changePreferredName(const char * prefname, User person) {
     return newpref;
 }
 
+/* findLocation: This function will return the location information for a user
+ * given a place name. The function returns NULL if the location is not found.
+ */
+Location findLocation(const char * place, const locList locs){
+    /* Check to see if the place is extent and return if not */
+    if (!place || !strlen(place)) return CLEAR_LOCATION;
+    locList p = locs;
+    /* Start with the begining of the Locations linked list */
+    while(p){
+        /* Try to match the place name with the ones in the linked list */
+        if(strcasecmp(dispPlace(p->loc), place) == 0){
+            /* We have a match! */
+            return p->loc;
+        }
+        /* We didn't find it, move to the next one */
+        p = p->next;
+    }
+    /* Either the Locations Linked List doesn't exist or we didn't get a match */
+    return LOCATION_NOT_FOUND;
+}
+
 /* 5/19 - Changed the checking of newLocation before return */
 Location changeOfficeName(const char * officename, User person) {
     Location newLocation = NULL; /* The user's new location */
-    if(person->loc) {
-        free(person->loc); /* Free the user's old location */
-        person->loc = NULL;
-    }
     newLocation = findLocation(officename, MasterLocs);
-    if (newLocation == NULL) return NULL;
-    else return person->loc;
+    
+    if ((newLocation == LOCATION_NOT_FOUND) || (newLocation == CLEAR_LOCATION)) {
+        return (person->loc = NULL);
+    }
+    else return (person->loc = newLocation); /* Indicate there was a change */
 }
 
 /* This function hasn't been implemented yet */
@@ -1301,7 +1324,7 @@ char * changePassword(const char * password, User person) {
     int strSize = strlen(password)+1;
     int count;
 
-    oldpassword = person->email;
+    oldpassword = person->password;
     if (oldpassword) free(oldpassword);
 
     newpassword = (char *)malloc(strSize); /* Account for the null char */
