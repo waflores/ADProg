@@ -122,6 +122,7 @@ ImportUsers::ImportUsers(QWidget *parent) : QWidget(parent) {
     // Set the people field to null
     people = NULL;
 }
+
 void ImportUsers::editPerson() {
 	if (getuserCount() > 0) {
 		edit_GUI = new EditUsers(this,0);

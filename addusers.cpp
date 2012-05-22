@@ -67,7 +67,59 @@ void AddUsers::enableAdding() {
     //hDriveView->setEnabled(true);
     //dispNameView->setEnabled(true);
 }
+void AddUsers::disableAdding() {
+        /* Make everything editable */
+    uNameEdit->setEnabled(false);
+    FNameEdit->setEnabled(false);
+    MNameEdit->setEnabled(false);
+    LNameEdit->setEnabled(false);
+    deptEdit->setEnabled(false);
+    InitEdit->setEnabled(false);
+    titleEdit->setEnabled(false);
+    pNameEdit->setEnabled(false);
+    officeNameView->setEnabled(false);
+    ppathview->setEnabled(false);
+    homeDirView->setEnabled(false);
+    //coView->setEnabled(true);
+    //scriptPathView->setEnabled(true);
+    //officeAddrDisp->setEnabled(true);
+    ModCheck->setEnabled(false);
+    //managerEdit->setEnabled(true);
+    EmailEdit->setEnabled(false);
+    //descView->setEnabled(true);
+    passwordView->setEnabled(false);
+    //hDriveView->setEnabled(true);
+    //dispNameView->setEnabled(true);
+}
 
-void AddUsers::submitAddForm(){}
+/* Submit data to addUser_c */
+void AddUsers::submitAddForm(){
+    char ** str = NULL; // this is what's going to be passed to addUser_c function
+    
+}
 
-void AddUsers::clearAddForm(){}
+void AddUsers::clearAddForm(){
+    int ret = QMessageBox::warning(this,"Reset Form", "Are you sure you want to reset all fields?",
+                        QMessageBox::Cancel, QMessageBox::Ok);
+    switch(ret) {
+        case QMessageBox::Ok:
+            uNameEdit->clear();
+            FNameEdit->clear();
+            MNameEdit->clear();
+            LNameEdit->clear();
+            deptEdit->clear();
+            InitEdit->clear();
+            titleEdit->clear();
+            pNameEdit->clear();
+            officeNameView->clear();
+            ppathview->clear();
+            homeDirView->clear();
+            ModCheck->setChecked(false);
+            EmailEdit->clear();
+            passwordView->clear();
+            break;
+        case QMessageBox::Cancel: /* Don't Do anything but fall through */
+        default:
+            break;
+    }
+}
