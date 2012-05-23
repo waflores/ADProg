@@ -1,0 +1,15 @@
+README: Updates and notes on this program.
+
+Version 1.0 lacks the following features:
+	* Allowing user to create a settings file on start up and for file to persist after execution.
+	* Allowing user to edit settings file while still running the program from GUI.
+	* Smart displayname display on text line edit.
+	* Smart CheckBox editing
+	* Progress Bars for Key parts of the program.
+	* Editing of the way the editUsers GUI tells user updates where commited.
+	* Fully test deep freeing algorithm for analyzer's sake.
+	* Analyze the data structures in the program and make refactoring recommendations
+		based on design patterns and code readability guidelines.
+	* Document all code fully with Headers and functionality comments.
+	* Create user manual for Program.
+	
