@@ -149,10 +149,11 @@ char * changeTitle(const char * title, User person);
 char * changeDepartment(const char * department, User person);
 char * changePreferredName(const char * prefname, User person);
 Location changeOfficeName(const char * officename, User person);
-char * changeProfilePath(const char * path, User person);
-char * changeHomeDirectory(const char * homedir, User person);
 char * changeEmail(const char * email, User person);
 char * changePassword(const char * password, User person);
+char * changeHomeDirectory(const char * username, User person);
+char * changeProfilePath(const char * username, User person);
+char * changeMod(const char * mod, User person);
 
 #endif	/* USERATTRIB_H */
 #ifdef __cplusplus

@@ -38,6 +38,7 @@ class ImportUsers : public QWidget {
             
 public:
     ImportUsers(QWidget *parent = 0);
+    userList people;
     
 public slots:
     void loadFromFile();
@@ -65,7 +66,7 @@ private:
     QVBoxLayout *recordLayout;
     EditUsers *edit_GUI;
     AddUsers *add_GUI;
-    userList people;
+    
 };
 
 #endif	/* ADPROG_H */

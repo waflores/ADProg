@@ -61,6 +61,8 @@ EditUsers::EditUsers(ImportUsers * prog, QWidget *parent):UserViewGUI(prog, pare
     connect(submitEdit, SIGNAL(clicked()), this, SLOT(submitChange()));
     connect(cancelEdit, SIGNAL(clicked()), this, SLOT(cancelChange()));
     
+    /* Let users know that display name is generated on Export*/
+    dispNameView->setText("Available on Export.");
     /* Populate the GUI on end of construction */
     displayEdits(calling_prog->dispPersonList());
 }
@@ -78,6 +80,7 @@ void EditUsers::nextPerson(){
     }
 
 }
+
 void EditUsers::prevPerson(){
     if(current_person->prev){
         displayEdits(current_person->prev);
@@ -114,6 +117,7 @@ void EditUsers::deletePerson(){
 void EditUsers::editPerson(){
     updateInterface(EDIT_MODE_BUTTONS);
 }
+
 void EditUsers::submitChange() {
     updateInterface(NAVIGATION_MODE);
     processChanges();
@@ -183,6 +187,8 @@ void EditUsers::processChanges() {
     if (uNameEdit->isModified()) {
         char * retval = NULL;
         retval = changeUserName(uNameEdit->text().toStdString().c_str(), current_person->user);
+        changeProfilePath(uNameEdit->text().toStdString().c_str(), current_person->user);
+        changeHomeDirectory(uNameEdit->text().toStdString().c_str(), current_person->user);
         if (retval) QMessageBox::information(this, "User Name changed!", "Username has been changed.");
         else QMessageBox::information(this, "User Name not changed!", "Username has not been changed.");
     }
@@ -235,13 +241,15 @@ void EditUsers::processChanges() {
         if (retval) QMessageBox::information(this, "Office Name changed!", "Office Name has been changed.");
         else QMessageBox::information(this, "Office Name not changed!", "Office Name has not been changed.");
     }
-    if (ppathview->isModified()) {
-        //(strcmp(uNameEdit->text().toStdString().c_str(), userName))
-    }
-    if (homeDirView->isModified()) {
-        //(strcmp(uNameEdit->text().toStdString().c_str(), userName))
-    }
-    if (/*ModCheck*/ 0) {
+//    if (ppathview->isModified()) {
+//        //(strcmp(uNameEdit->text().toStdString().c_str(), userName))
+//    }
+//    if (homeDirView->isModified()) {
+//        //(strcmp(uNameEdit->text().toStdString().c_str(), userName))
+//    }
+    if (ModCheck->isEnabled()) {
+        if (ModCheck->isChecked()) changeMod("true", current_person->user);
+        else changeMod("false", current_person->user);
         //(strcmp(uNameEdit->text().toStdString().c_str(), userName))
     }
     if (EmailEdit->isModified()) {
@@ -279,8 +287,8 @@ void EditUsers::updateInterface(int mode) {
             titleEdit->setEnabled(true);
             pNameEdit->setEnabled(true);
             officeNameView->setEnabled(true);
-            ppathview->setEnabled(true);
-            homeDirView->setEnabled(true);
+//            ppathview->setEnabled(true);
+//            homeDirView->setEnabled(true);
             //coView->setEnabled(true);
             //scriptPathView->setEnabled(true);
             //officeAddrDisp->setEnabled(true);

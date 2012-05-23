@@ -30,7 +30,7 @@ public slots:
     /* The child class's methods for the editing of attributes */
     void enableAdding();
     void disableAdding();
-    void clearAddForm();
+    void clearAddForm(bool warn = true);
     void submitAddForm();
 private:
     QPushButton *clearForm;

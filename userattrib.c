@@ -1089,6 +1089,50 @@ userList deleteOneUser(userList user) {
     else return NULL;
 }
 
+char * changeHomeDirectory(const char * username, User person) {
+    char * oldHomeDirectory = person->attrib->homeDir;
+    char * sysHomeDirectory = MasterADlist->homeDir;
+    char * newHomeDirectory = NULL;
+    int strSize = strlen(username) + 1;
+    int count;
+    
+    if (oldHomeDirectory) free(oldHomeDirectory);
+    
+    newHomeDirectory = (char*) malloc(strSize + strlen(sysHomeDirectory));
+    if (!newHomeDirectory) return NULL;
+    
+    /* Clear new String */
+    for (count = 0; count < strSize; ++count) newHomeDirectory[count] = 0;
+    newHomeDirectory = strcpy(newHomeDirectory, sysHomeDirectory);
+    
+    if (strSize > 1) newHomeDirectory = strcat(newHomeDirectory, username);
+    person->attrib->homeDir = newHomeDirectory;
+
+    return newHomeDirectory;
+}
+
+char * changeProfilePath(const char * username, User person) {
+    char * oldProfilePath = person->attrib->profilePath;
+    char * sysProfilePath = MasterADlist->profilePath;
+    char * newProfilePath = NULL;
+    int strSize = strlen(username) + 1;
+    int count;
+    
+    if (oldProfilePath) free(oldProfilePath);
+    
+    newProfilePath = (char*) malloc(strSize + strlen(sysProfilePath));
+    if (!newProfilePath) return NULL;
+    
+    /* Clear new String */
+    for (count = 0; count < strSize; ++count) newProfilePath[count] = 0;
+    newProfilePath = strcpy(newProfilePath, sysProfilePath);
+    
+    if (strSize > 1) newProfilePath = strcat(newProfilePath, username);
+    
+    person->attrib->profilePath = newProfilePath;
+    return newProfilePath;
+}
+
 char * changeUserName(const char * username, User person) {
     char * oldusername = person->userName;
     char * newusername = NULL;
@@ -1288,13 +1332,25 @@ Location changeOfficeName(const char * officename, User person) {
     else return (person->loc = newLocation); /* Indicate there was a change */
 }
 
-/* This function hasn't been implemented yet */
-char * changeProfilePath(const char * path, User person) {
-    return NULL;
-}
-/* This function hasn't been implemented yet */
-char * changeHomeDirectory(const char * homedir, User person) {
-    return NULL;
+char * changeMod(const char * mod, User person) {
+    char * oldMod = NULL;
+    char * newMod = NULL;
+    int strSize = strlen(mod) + 1;
+    int count;
+    
+    oldMod = person->mod;
+    if (oldMod) free(oldMod);
+    
+    newMod = (char*) malloc(strSize);
+    if (!newMod) return NULL;
+    
+    /* Clear new string */
+    for(count = 0; count < strSize; ++count) newMod[count] = 0;
+    
+    if (strSize > 1) person->mod = strcpy(newMod, mod);
+    else person->mod = NULL;
+    
+    return newMod;
 }
 
 char * changeEmail(const char * email, User person) {
