@@ -1,0 +1,60 @@
+load("@rules_qt//:qt.bzl", "qt_cc_binary", "qt_cc_library")
+
+# Modules that use Qt:
+# addusers <-adprog, addusers, userattrib, userViewGUI
+# adprog <-editUsers, addusers, userattrib
+# editusers <-adprog, userattrib, userViewGUI
+# userViewGUI <-adprog, userattrib
+
+qt_cc_library(
+    name = "mess",
+    srcs = [
+        "addusers.cpp",
+        "adprog.cpp",
+        "editusers.cpp",
+        "userViewGUI.cpp",
+    ],
+    hdrs = [
+        "addusers.h",
+        "adprog.h",
+        "editUsers.h",
+        "userViewGUI.h",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":userattrib",
+        "@rules_qt//:qt_core",
+        "@rules_qt//:qt_gui",
+        "@rules_qt//:qt_widgets",
+    ],
+)
+
+# Pure C:
+# helperfuncs
+# userattrib
+
+cc_library(
+    name = "userattrib",
+    srcs = ["userattrib.c"],
+    hdrs = ["userattrib.h"],
+    visibility = ["//visibility:public"],
+    deps = [":helperfuncs"],
+)
+
+cc_library(
+    name = "helperfuncs",
+    srcs = ["helperfuncs.c"],
+    hdrs = ["helperfuncs.h"],
+    visibility = ["//visibility:public"],
+)
+
+qt_cc_binary(
+    name = "ADProg",
+    srcs = ["main.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":mess",
+        "@rules_qt//:qt_core",
+        "@rules_qt//:qt_widgets",
+    ],
+)

@@ -1,0 +1,5 @@
+# Bazel Outputs
+bazel-*/**
+
+# VSCode IDE
+.vscode/*

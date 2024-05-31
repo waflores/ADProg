@@ -1,0 +1,14 @@
+startup --windows_enable_symlinks # --host_jvm_args=-Djavax.net.ssl.trustStoreType=WINDOWS-ROOT
+common --enable_platform_specific_config
+# build --enable_runfiles
+
+# Visual Studio 2019
+build:windows --cxxopt=/std:c++17
+build:windows --cxxopt=/permissive-
+build:windows --cxxopt=/Zc:__cplusplus # Untested
+build:windows --enable_runfiles # https://github.com/bazelbuild/bazel/issues/8843
+build:windows --define compiler=vs2019
+build:windows --copt=-DWIN32_LEAN_AND_MEAN
+build:windows --copt=-DNOGDI
+build:windows --host_copt=-DWIN32_LEAN_AND_MEAN
+build:windows --host_copt=-DNOGDI

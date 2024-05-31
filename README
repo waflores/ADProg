@@ -13,3 +13,7 @@ Version 1.0 lacks the following features:
 	* Document all code fully with Headers and functionality comments.
 	* Create user manual for Program.
 	
+
+# Some Additional Notes
+https://github.com/vector-of-bool/pitchfork
+https://stackoverflow.com/questions/2360734/whats-a-good-directory-structure-for-larger-c-projects-using-makefile
