@@ -133,53 +133,53 @@ int getSettings(const char * file, const char * prog){
 
         /* Parse the settings file */
         inStr = strtok(buffer, ": ");
-        if (strcasecmp(buffer, "//") == 0){
+        if (_stricmp(buffer, "//") == 0){
             /* We reached a comment in the file, disregard the rest of the line */
             continue;
         }
-        else if (strcasecmp(buffer, "Company") == 0){
+        else if (_stricmp(buffer, "Company") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the Company Name */
             MasterPart->companyName = (char *)malloc(strlen(inStr)+1);
             strcpy(MasterPart->companyName, inStr);
         }
-        else if(strcasecmp(buffer, "Description") == 0){
+        else if(_stricmp(buffer, "Description") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the description */
             MasterPart->desc = (char *)malloc(strlen(inStr)+1);
             strcpy(MasterPart->desc, inStr);
         }
-        else if(strcasecmp(buffer, "Script_Path") == 0){
+        else if(_stricmp(buffer, "Script_Path") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the Script Path */
             MasterADlist->scriptPath = (char *)malloc(strlen(inStr)+1);
             strcpy(MasterADlist->scriptPath, inStr);
         }
-        else if(strcasecmp(buffer, "Home_Drive") == 0){
+        else if(_stricmp(buffer, "Home_Drive") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the Home Drive */
             MasterADlist->homeDrive = (char *) malloc(strlen(inStr)+1);
             strcpy(MasterADlist->homeDrive, inStr);
         }
-        else if(strcasecmp(buffer, "Profile_Path") == 0){
+        else if(_stricmp(buffer, "Profile_Path") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the Profile path */
             MasterADlist->profilePath = (char *)malloc(strlen(inStr)+1);
             strcpy(MasterADlist->profilePath, inStr);
         }
-        else if(strcasecmp(buffer, "Home_Directory") == 0){
+        else if(_stricmp(buffer, "Home_Directory") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the Home Directory */
             MasterADlist->homeDir = (char *)malloc(strlen(inStr)+1);
             strcpy(MasterADlist->homeDir, inStr);
         }
-        else if(strcasecmp(buffer, "User_Principal_Name") == 0){
+        else if(_stricmp(buffer, "User_Principal_Name") == 0){
             inStr = strtok(NULL, "\0");
             /* Establish the Domain Name */
             MasterADlist->UPN = (char *)malloc(strlen(inStr)+1);
             strcpy(MasterADlist->UPN, inStr);
         }
-        else if(strcasecmp(buffer, "Start_Location") == 0){
+        else if(_stricmp(buffer, "Start_Location") == 0){
             /* Create a new location bin */
             place = (Location)malloc(sizeof(struct location));
             if(!place) { /* error checking code */;
@@ -196,7 +196,7 @@ int getSettings(const char * file, const char * prog){
                 if(!inStr) inStr = strtok(buffer, "\n");
 
                 /* Error checking code */
-                if(strcasecmp(buffer, "End_Location") == 0) break;
+                if(_stricmp(buffer, "End_Location") == 0) break;
                 /* Populate the fields */
                 switch(fieldCount){
                     case 0: /* Establish the Location's Abreviation */
@@ -1310,7 +1310,7 @@ Location findLocation(const char * place, const locList locs){
     /* Start with the begining of the Locations linked list */
     while(p){
         /* Try to match the place name with the ones in the linked list */
-        if(strcasecmp(dispPlace(p->loc), place) == 0){
+        if(_stricmp(dispPlace(p->loc), place) == 0){
             /* We have a match! */
             return p->loc;
         }

@@ -12,6 +12,7 @@
  */
 #include "addusers.h"
 
+#include <QMessageBox>
 #include <QtGui>
 
 #include "adprog.h"
@@ -189,7 +190,7 @@ void AddUsers::submitAddForm() {
     str[i] = new char[strlen(inputArray.at(i).toStdString().c_str()) + 1];
     strcpy(str[i], inputArray.at(i).toStdString().c_str());
   }
-  str[inputArray.size()] = ((char)NULL);  // NULL Terminated array
+  str[inputArray.size()] = ((char *)NULL);  // NULL Terminated array
   // push these items into master user linked list
 
   /******************************* get the people field filled

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <windows.h>
 
+#include <QMessageBox>
 #include <QStringList>
 #include <QtGui>
 

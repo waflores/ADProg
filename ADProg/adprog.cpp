@@ -17,6 +17,8 @@
 #include <string.h>
 #include <windows.h>
 
+#include <QFileDialog>
+#include <QMessageBox>
 #include <QStringList>
 #include <QtGui>
 
@@ -157,7 +159,7 @@ int ImportUsers::settingsFile() {  // Load settings from default settings file
   int retval;
   QString fileName = "settings.dat";
 
-  retval = getSettings(fileName.toAscii(), "Import Users");
+  retval = getSettings(fileName.toLatin1(), "Import Users");
 
   // oops... we didn't get a vaild settings file
   while (retval != SUCCESS) {
@@ -177,7 +179,7 @@ int ImportUsers::settingsFile() {  // Load settings from default settings file
       QMessageBox::information(this, "Settings File",
                                "Rename this file \"settings.dat\" and place it "
                                "into the directory this program runs.");
-      retval = getSettings(fileName.toAscii(), "Import Users");
+      retval = getSettings(fileName.toLatin1(), "Import Users");
       if (retval == SUCCESS) {
         QMessageBox::information(this, "Settings File Opened!",
                                  "Settings file was imported successfully!");
@@ -211,7 +213,7 @@ QString ImportUsers::saveToFile() {
     return NULL;
   else {
     // Export the users
-    retval = exportUsers(people, fileName.toAscii());
+    retval = exportUsers(people, fileName.toLatin1());
     if (retval == SUCCESS) {
       QMessageBox::information(this, "Exported a file",
                                "Sucessful Export to " + fileName);
@@ -235,7 +237,7 @@ void ImportUsers::loadFromFile() {
   if (fileName.isEmpty())
     return;
   else {
-    people = batchImport(fileName.toAscii());  // from userattrib.c/h
+    people = batchImport(fileName.toLatin1());  // from userattrib.c/h
     // check to see if everything panned out ok
     if (people)
       QMessageBox::information(this, "Imported a file",
@@ -265,8 +267,8 @@ void ImportUsers::importToAD() {
       return;
     else {
       // from windows API
-      ShellExecuteA(NULL, NULL, scriptName.toAscii(), fileName.toAscii(), NULL,
-                    SW_SHOW);
+      // ShellExecuteA(NULL, NULL, scriptName.toLatin1(), fileName.toLatin1(), NULL,
+      //               SW_SHOW);
       QMessageBox::information(this, "Export Complete",
                                "The script was run successfully.");
     }
