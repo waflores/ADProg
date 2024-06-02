@@ -1,0 +1,48 @@
+README: Updates and notes on this program.
+
+Version 1.0 lacks the following features:
+_ Allowing user to create a settings file on start up and for file to persist after execution.
+_ Allowing user to edit settings file while still running the program from GUI.
+_ Smart displayname display on text line edit.
+_ Smart CheckBox editing
+_ Progress Bars for Key parts of the program.
+_ Editing of the way the editUsers GUI tells user updates where commited.
+_ Fully test deep freeing algorithm for analyzer's sake.
+_ Analyze the data structures in the program and make refactoring recommendations
+based on design patterns and code readability guidelines.
+_ Document all code fully with Headers and functionality comments.
+_ Create user manual for Program.
+
+# Some Additional Notes
+
+https://github.com/vector-of-bool/pitchfork
+https://stackoverflow.com/questions/2360734/whats-a-good-directory-structure-for-larger-c-projects-using-makefile
+https://github.com/zegl/rules_codeowners
+https://github.com/filmil/bazel-ebook
+https://github.com/ProdriveTechnologies/bazel-pandoc
+https://github.com/grailbio/rules_r
+https://github.com/hedronvision/bazel-compile-commands-extractor
+
+# interesting: https://github.com/quittle/rules_web
+
+https://github.com/spotify/bazel-tools
+https://github.com/atlassian/bazel-tools
+https://github.com/ash2k/bazel-tools
+https://github.com/GerritCodeReview/bazlets
+https://github.com/Tinder/bazel-diff
+https://github.com/pex-tool/pex
+https://github.com/google/or-tools
+https://github.com/C2SP/wycheproof
+https://www.stevenengelhardt.com/series/practical-bazel/
+https://stackoverflow.com/questions/30064480/how-do-you-change-the-formatting-options-in-visual-studio-code
+https://github.com/TheLartians/ModernCppStarter
+https://github.com/aminya/cpp_vcpkg_project
+https://github.com/cpp-best-practices/
+https://gregorykelleher.com/interview_practice_questions
+https://github.com/JackWetherell/cpp-project-structure -> Let's try this folder structure
+https://hsf-training.github.io/hsf-training-cmake-webpage/06-projectstructure/index.html
+https://trussel.ch/cpp/2020/03/30/how-to-organize-your-cpp-project.html
+https://galowicz.de/2023/01/23/mixed-cpp-monorepo-project/
+https://github.com/tfc/cmake_cpp_example
+https://github.com/fbaeuerlein/cpp-vscode-guide
+https://jayconrod.com/posts/108/writing-bazel-rules--data-and-runfiles

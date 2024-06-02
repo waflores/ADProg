@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.json": "jsonc",
+        "*.h": "c",
+        "q*": "cpp",
+    },
+    "[bazel]": {
+        "editor.formatOnSave": true
+    },
+}

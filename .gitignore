@@ -3,3 +3,6 @@ bazel-*/**
 
 # VSCode IDE
 .vscode/*
+
+# Local Programming Notes
+.ProgrammingNotes

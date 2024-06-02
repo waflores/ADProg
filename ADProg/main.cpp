@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include <QtWidgets/QApplication>
+#include <QApplication>
 
 #include "adprog.h"
 
