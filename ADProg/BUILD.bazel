@@ -51,6 +51,7 @@ cc_library(
 qt_cc_binary(
     name = "ADProg",
     srcs = ["main.cpp"],
+    data = ["settings.dat"],
     visibility = ["//visibility:public"],
     deps = [
         ":mess",
