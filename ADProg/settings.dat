@@ -1,0 +1,14 @@
+// An example settings.dat; which the original was lost to time
+Company: ACME Corp LTD
+Description: Headquarters
+Script_Path: C:\Script\Path\
+Home_Drive: H:\Home\Path\
+Profile_Path: H:\Home\Path\Profile\
+Home_Directory: H:\Home\
+User_Principal_Name: JDoe3
+Start_Location: 
+ACHQ
+123 Main Street
+Raleigh, NC 27603
+United States
+End_Location

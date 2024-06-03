@@ -1,11 +1,13 @@
 startup --windows_enable_symlinks # --host_jvm_args=-Djavax.net.ssl.trustStoreType=WINDOWS-ROOT
-common --enable_platform_specific_config
+common --enable_platform_specific_config --repo_env=LC_ALL="en_US.UTF-8"
 
 # Local Bazel Build Event Upload Services
-build:bezel --bes_backend=grpc://localhost:8085
-build:bezel --bes_results_url=grpc://localhost:8085/pipeline
+build:bezel --remote_cache=grpc://127.0.0.1:9090
+build:bezel --bes_backend=grpc://127.0.0.1:8085
+build:bezel --bes_results_url=http://127.0.0.1:8085/pipeline
 build:bezel --bes_timeout=5s
 build:bezel --build_event_publish_all_actions
+
 
 # Visual Studio 2019
 build:windows --cxxopt=/std:c++17

@@ -46,3 +46,7 @@ https://galowicz.de/2023/01/23/mixed-cpp-monorepo-project/
 https://github.com/tfc/cmake_cpp_example
 https://github.com/fbaeuerlein/cpp-vscode-guide
 https://jayconrod.com/posts/108/writing-bazel-rules--data-and-runfiles
+
+We get this failure when running `aquery` in BZL: 
+"failed to generate report: rpc error: code = Internal desc = failed to unmarshal ActionGraphContainer: string field contains invalid UTF-8"
+https://docs.bzl.io/
