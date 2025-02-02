@@ -82,14 +82,6 @@ https://stackoverflow.com/questions/76919221/how-can-you-manage-force-not-recomm
 https://code.visualstudio.com/docs/editor/profiles#_share-profiles
 https://github.com/aspect-build/bazel-examples/tree/main
 
-# TODO We need to resolve this issue with bzlmod:
-
-# ERROR: error loading package under directory '': error loading package 'ADProg':
-
-# at C:/users/will/\_bazel_will/pk37fsbm/external/+non_module_dependencies+rules_qt/qt.bzl:3:6:
-
-# Unable to find package for @@[unknown repo 'rules_cc' requested from @@+non_module_dependencies+rules_qt (did you mean 'rules_qt'?)]//cc:cc_binary.bzl: The repository '@@[unknown repo 'rules_cc' requested from @@+non_module_dependencies+rules_qt (did you mean 'rules_qt'?)]' could not be resolved: No repository visible as '@rules_cc' from repository '@@+non_module_dependencies+rules_qt'.
-
 # See: https://bazel.build/external/migration
 
 # We've got this inspiration
