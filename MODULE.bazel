@@ -4,3 +4,32 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+module(
+    name = "active_directory_user_creation_utility",
+)
+
+bazel_dep(
+    name = "tomlplusplus",
+    version = "3.4.0",
+)
+
+bazel_dep(name = "argparse", version = "3.0.0")
+bazel_dep(name = "platforms", version = "0.0.11")
+bazel_dep(name = "rules_qt")
+
+git_override(
+    module_name = "rules_qt",
+    remote = "https://github.com/Vertexwahn/rules_qt6.git",
+    commit = "0a024d9d91abe6f141600b347563b5670b67f283",
+)
+qt = use_extension("@rules_qt//:extensions.bzl", "qt")
+qt.fetch()
+use_repo(
+    qt,
+    "qt_linux_x86_64",
+    "qt_windows_x86_64",
+)
+register_toolchains(
+    "@rules_qt//tools:all",
+    dev_dependency = True,
+)

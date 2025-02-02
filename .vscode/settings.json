@@ -1,10 +1,7 @@
 {
-    "files.associations": {
-        "*.json": "jsonc",
-        "*.h": "c",
-        "q*": "cpp",
-    },
-    "[bazel]": {
-        "editor.formatOnSave": true
-    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#45242A",
+        "titleBar.activeBackground": "#60323B",
+        "titleBar.activeForeground": "#FCF9F9"
+    }
 }

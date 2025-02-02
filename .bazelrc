@@ -9,12 +9,26 @@ build:bezel --bes_timeout=5s
 build:bezel --build_event_publish_all_actions
 
 
-# Visual Studio 2019
-build:windows --cxxopt=/std:c++17
-build:windows --cxxopt=/permissive-
-build:windows --cxxopt=/Zc:__cplusplus # Untested
+build --noincompatible_disallow_empty_glob
 build:windows --enable_runfiles # https://github.com/bazelbuild/bazel/issues/8843
-build:windows --define compiler=vs2019
+
+# Visual Studio 2019
+# build:windows --cxxopt=/std:c++17
+# build:windows --cxxopt=/permissive-
+# build:windows --cxxopt=/Zc:__cplusplus # Untested
+# build:windows --define compiler=vs2019
+# build:windows --copt=-DWIN32_LEAN_AND_MEAN
+# build:windows --copt=-DNOGDI
+# build:windows --host_copt=-DWIN32_LEAN_AND_MEAN
+# build:windows --host_copt=-DNOGDI
+
+# Visual Studio 2022
+## NOTE: We need to have WSL running in the background for some of the compilation process
+build:windows --define compiler=vs2022
+build:windows --cxxopt=/std:c++20  # Qt requires a C++17 compiler, and a suitable value for __cplusplus.
+build:windows --cxxopt=/Zc:__cplusplus #  On MSVC, you must pass the /Zc:__cplusplus option to the compiler.
+build:windows --cxxopt=/permissive-  # QtCore/qglobal.h(120): error C2338
+build:windows --cxxopt=/Zc:__cplusplus
 build:windows --copt=-DWIN32_LEAN_AND_MEAN
 build:windows --copt=-DNOGDI
 build:windows --host_copt=-DWIN32_LEAN_AND_MEAN

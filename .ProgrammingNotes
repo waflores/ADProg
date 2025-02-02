@@ -47,6 +47,51 @@ https://github.com/tfc/cmake_cpp_example
 https://github.com/fbaeuerlein/cpp-vscode-guide
 https://jayconrod.com/posts/108/writing-bazel-rules--data-and-runfiles
 
-We get this failure when running `aquery` in BZL: 
+We get this failure when running `aquery` in BZL:
 "failed to generate report: rpc error: code = Internal desc = failed to unmarshal ActionGraphContainer: string field contains invalid UTF-8"
 https://docs.bzl.io/
+
+# How to deal with config files in CPP
+
+https://hyperrealm.github.io/libconfig/
+https://github.com/Qix-/tortellini
+https://marzer.github.io/tomlplusplus/
+https://github.com/skystrife/cpptoml
+https://github.com/yaml/libyaml
+https://github.com/p-ranav/argparse
+https://github.com/CLIUtils/CLI11
+https://github.com/renovatebot/renovate/issues/13658
+https://github.com/renovatebot/renovate/pull/22803/files -> More insight into how Bazel Deps & Modules work
+https://docs.aspect.build/guides/bzlmod.free/
+
+https://github.com/pytorch/cpuinfo
+https://gitlab.arm.com/bazel/download_utils/
+https://github.com/uber/hermetic_cc_toolchain/
+https://github.com/open-telemetry/opentelemetry-cpp
+https://github.com/pybind/pybind11_bazel
+https://github.com/zegl/rules_codeowners
+https://gitlab.arm.com/bazel/rules_coreutils/ -> HERMETIC!
+https://github.com/matts1/rules_directory
+https://gitlab.arm.com/bazel/ape/ -> "Actually Portable Executables"
+https://github.com/gabime/spdlog -> Speedy Logger
+https://github.com/c42f/tinyformat -> fmt, but tfm
+https://gitlab.arm.com/bazel/toolchain_utils/
+https://github.com/civetweb/civetweb -> C++ Web Server
+https://www.reddit.com/r/vscode/comments/w70t12/where_is_the_formatcontentsyntax_of_codeworkspace/?rdt=59125
+https://stackoverflow.com/questions/76919221/how-can-you-manage-force-not-recommend-what-extensions-are-enabled-disabled-i
+https://code.visualstudio.com/docs/editor/profiles#_share-profiles
+https://github.com/aspect-build/bazel-examples/tree/main
+
+# TODO We need to resolve this issue with bzlmod:
+
+# ERROR: error loading package under directory '': error loading package 'ADProg':
+
+# at C:/users/will/\_bazel_will/pk37fsbm/external/+non_module_dependencies+rules_qt/qt.bzl:3:6:
+
+# Unable to find package for @@[unknown repo 'rules_cc' requested from @@+non_module_dependencies+rules_qt (did you mean 'rules_qt'?)]//cc:cc_binary.bzl: The repository '@@[unknown repo 'rules_cc' requested from @@+non_module_dependencies+rules_qt (did you mean 'rules_qt'?)]' could not be resolved: No repository visible as '@rules_cc' from repository '@@+non_module_dependencies+rules_qt'.
+
+# See: https://bazel.build/external/migration
+
+# We've got this inspiration
+
+# https://github.com/Sayter99/qwt_bazel
