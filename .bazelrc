@@ -1,26 +1,18 @@
 startup --windows_enable_symlinks # --host_jvm_args=-Djavax.net.ssl.trustStoreType=WINDOWS-ROOT
+startup --output_user_root=C:/bzl
 common --enable_platform_specific_config --repo_env=LC_ALL="en_US.UTF-8"
+common --show_timestamps --verbose_failures
 
 # Local Bazel Build Event Upload Services
-build:bezel --remote_cache=grpc://127.0.0.1:9090
-build:bezel --bes_backend=grpc://127.0.0.1:8085
-build:bezel --bes_results_url=http://127.0.0.1:8085/pipeline
-build:bezel --bes_timeout=5s
-build:bezel --build_event_publish_all_actions
+common:bezel --remote_cache=grpc://127.0.0.1:9090
+common:bezel --bes_backend=grpc://127.0.0.1:8085
+common:bezel --bes_results_url=http://127.0.0.1:8085/pipeline
+common:bezel --bes_timeout=5s
+common:bezel --build_event_publish_all_actions
 
 
 build --noincompatible_disallow_empty_glob
-build:windows --enable_runfiles # https://github.com/bazelbuild/bazel/issues/8843
-
-# Visual Studio 2019
-# build:windows --cxxopt=/std:c++17
-# build:windows --cxxopt=/permissive-
-# build:windows --cxxopt=/Zc:__cplusplus # Untested
-# build:windows --define compiler=vs2019
-# build:windows --copt=-DWIN32_LEAN_AND_MEAN
-# build:windows --copt=-DNOGDI
-# build:windows --host_copt=-DWIN32_LEAN_AND_MEAN
-# build:windows --host_copt=-DNOGDI
+common:windows --enable_runfiles # https://github.com/bazelbuild/bazel/issues/8843
 
 # Visual Studio 2022
 ## NOTE: We need to have WSL running in the background for some of the compilation process
