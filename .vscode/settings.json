@@ -4,5 +4,5 @@
         "titleBar.activeBackground": "#60323B",
         "titleBar.activeForeground": "#FCF9F9"
     },
-    "clangd.path": " C:\\Program Files\\LLVM\\bin\\clangd.exe"
+    "clangd.path": "C:\\Program Files\\LLVM\\bin\\clangd.exe"
 }
