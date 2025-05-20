@@ -9,16 +9,16 @@ load("@rules_qt//:qt.bzl", "qt_cc_binary", "qt_cc_library")
 qt_cc_library(
     name = "mess",
     srcs = [
-        "old/addusers.cpp",
-        "old/adprog.cpp",
-        "old/editusers.cpp",
-        "old/userViewGUI.cpp",
+        "addusers.cpp",
+        "adprog.cpp",
+        "editusers.cpp",
+        "userViewGUI.cpp",
     ],
     hdrs = [
-        "old/addusers.h",
-        "old/adprog.h",
-        "old/editUsers.h",
-        "old/userViewGUI.h",
+        "addusers.h",
+        "adprog.h",
+        "editUsers.h",
+        "userViewGUI.h",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -35,22 +35,22 @@ qt_cc_library(
 
 cc_library(
     name = "userattrib",
-    srcs = ["old/userattrib.c"],
-    hdrs = ["old/userattrib.h"],
+    srcs = ["userattrib.c"],
+    hdrs = ["userattrib.h"],
     visibility = ["//visibility:public"],
     deps = [":helperfuncs"],
 )
 
 cc_library(
     name = "helperfuncs",
-    srcs = ["old/helperfuncs.c"],
-    hdrs = ["old/helperfuncs.h"],
+    srcs = ["helperfuncs.c"],
+    hdrs = ["helperfuncs.h"],
     visibility = ["//visibility:public"],
 )
 
 qt_cc_binary(
     name = "ADProg",
-    srcs = ["old/main.cpp"],
+    srcs = ["main.cpp"],
     data = ["settings.dat"],
     visibility = ["//visibility:public"],
     deps = [
