@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
   QWidget window;
 
   //! [create, lay out widgets and show]
-  QLabel label(QApplication::translate("windowlayout", "Name:"));
+  QLabel label{QApplication::translate("windowlayout", "Name:")};
   QLineEdit lineEdit{};
 
   QHBoxLayout layout{};
