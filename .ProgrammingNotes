@@ -87,3 +87,8 @@ https://github.com/aspect-build/bazel-examples/tree/main
 # We've got this inspiration
 
 # https://github.com/Sayter99/qwt_bazel
+
+Qt Examples:
+https://code.qt.io/cgit/qt/qtbase.git/tree/examples/widgets/tutorials/widgets/nestedlayouts/main.cpp
+https://stackoverflow.com/questions/146452/what-are-pod-types-in-c
+https://stackoverflow.com/questions/2579657/ctor-not-allowed-return-type

@@ -7,5 +7,16 @@
     "clangd.path": "C:\\Program Files\\LLVM\\bin\\clangd.exe",
     "C_Cpp.clang_format_path": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
     "C_Cpp.codeAnalysis.clangTidy.path": "C:\\Program Files\\LLVM\\bin\\clang-tidy.exe",
-    "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe"
+    "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "files.associations": {
+        "*.json": "jsonc",
+        "qtwidgets": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xlocale": "cpp",
+        "qhboxlayout": "cpp"
+    }
 }
