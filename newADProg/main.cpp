@@ -16,13 +16,13 @@ int main(int argc, char **argv) {
   QWidget window;
   
   //! [create, lay out widgets and show]
-  QLabel *label = new QLabel(QApplication::translate("windowlayout", "Name:"));
-  QLineEdit *lineEdit = new QLineEdit();
+  QLabel label {QLabel(QApplication::translate("windowlayout", "Name:"))};
+  QLineEdit lineEdit {QLineEdit()};
 
-  QHBoxLayout *layout = new QHBoxLayout();
-  layout->addWidget(label);
-  layout->addWidget(lineEdit);
-  window.setLayout(layout);
+  QHBoxLayout layout {QHBoxLayout()};
+  layout.addWidget(&label);
+  layout.addWidget(&lineEdit);
+  window.setLayout(&layout);
   //! [create, lay out widgets and show]
   window.setWindowTitle(
       QApplication::translate("windowlayout", "Window layout"));
