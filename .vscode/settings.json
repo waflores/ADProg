@@ -4,5 +4,8 @@
         "titleBar.activeBackground": "#60323B",
         "titleBar.activeForeground": "#FCF9F9"
     },
-    "clangd.path": "C:\\Program Files\\LLVM\\bin\\clangd.exe"
+    "clangd.path": "C:\\Program Files\\LLVM\\bin\\clangd.exe",
+    "C_Cpp.clang_format_path": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
+    "C_Cpp.codeAnalysis.clangTidy.path": "C:\\Program Files\\LLVM\\bin\\clang-tidy.exe",
+    "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe"
 }
