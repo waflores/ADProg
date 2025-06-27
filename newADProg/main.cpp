@@ -14,12 +14,12 @@
 int main(int argc, char **argv) {
   QApplication app(argc, argv);
   QWidget window;
-  
-  //! [create, lay out widgets and show]
-  QLabel label {QLabel(QApplication::translate("windowlayout", "Name:"))};
-  QLineEdit lineEdit {QLineEdit()};
 
-  QHBoxLayout layout {QHBoxLayout()};
+  //! [create, lay out widgets and show]
+  QLabel label(QApplication::translate("windowlayout", "Name:"));
+  QLineEdit lineEdit{};
+
+  QHBoxLayout layout{};
   layout.addWidget(&label);
   layout.addWidget(&lineEdit);
   window.setLayout(&layout);
