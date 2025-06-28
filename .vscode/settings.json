@@ -17,6 +17,10 @@
         "vector": "cpp",
         "xstring": "cpp",
         "xlocale": "cpp",
-        "qhboxlayout": "cpp"
+        "qhboxlayout": "cpp",
+        "qfiledialog": "cpp",
+        "chrono": "cpp",
+        "future": "cpp",
+        "system_error": "cpp"
     }
 }

@@ -1,0 +1,13 @@
+load("@rules_qt//:qt.bzl", "qt_cc_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+qt_cc_binary(
+    name = "newADProg",
+    srcs = ["main.cpp", "main_window.cpp", "main_window.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@rules_qt//:qt_core",
+        "@rules_qt//:qt_widgets",
+    ],
+)
