@@ -21,6 +21,7 @@
         "qfiledialog": "cpp",
         "chrono": "cpp",
         "future": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "iostream": "cpp"
     }
 }
