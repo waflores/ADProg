@@ -19,7 +19,7 @@ class MainWindow : public QWidget {
 public:
   MainWindow(QWidget *parent = nullptr);
   void doMessage(bool);
-  void buttonMessage(QAbstractButton *button);
+  void buttonMessage(QPushButton *);
 
 private:
   QVersionNumber versionNumber_{2, 0, 0};

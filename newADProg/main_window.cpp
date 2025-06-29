@@ -22,11 +22,16 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
   setLayout(&mainLayout_);
 
-  connect(mainButtonGroup_, static_cast<void(QButtonGroup::*)(QPushButton)>(&QButtonGroup::buttonClicked), this, static_cast<void(QButtonGroup::*)(QPushButton)>(&MainWindow::buttonMessage));
+  connect(&mainButtonGroup_,
+          reinterpret_cast<void (QButtonGroup::*)(QPushButton *)>(
+              &QButtonGroup::buttonClicked),
+          this, &MainWindow::buttonMessage);
 
+  /*
   for (auto child : findChildren<QPushButton *>()) {
-    connect(child, &QPushButton::clicked, this, &MainWindow::doMessage);
+  connect(child, &QPushButton::clicked, this, &MainWindow::doMessage);
   }
+  */
 }
 
 void MainWindow::doMessage([[maybe_unused]] bool something) {
@@ -35,6 +40,5 @@ void MainWindow::doMessage([[maybe_unused]] bool something) {
 }
 
 void MainWindow::buttonMessage(QPushButton *button) {
-  std::string msg{"I was pressed by" % button.text()};
-  QMessageBox::information(this, "AHHHHH", msg.c_str());
+  QMessageBox::information(this, "AHHHHH", button->text());
 }
