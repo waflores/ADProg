@@ -52,9 +52,7 @@ public slots:
   void submitAddForm();
 
 private:
-  QPushButton *clearForm;
-  QPushButton *submitForm;
-  QHBoxLayout *submitLayout;
+  QFormLayout submitLayout_;
 };
 
 #endif // MAIN_WINDOW_H_

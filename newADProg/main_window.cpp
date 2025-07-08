@@ -1,3 +1,13 @@
+/**
+ * @file main_window.cpp
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2025-06-28
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
 #include "main_window.h"
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
@@ -26,12 +36,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
           reinterpret_cast<void (QButtonGroup::*)(QPushButton *)>(
               &QButtonGroup::buttonClicked),
           this, &MainWindow::buttonMessage);
-
-  /*
-  for (auto child : findChildren<QPushButton *>()) {
-  connect(child, &QPushButton::clicked, this, &MainWindow::doMessage);
-  }
-  */
 }
 
 void MainWindow::doMessage([[maybe_unused]] bool something) {
@@ -41,4 +45,8 @@ void MainWindow::doMessage([[maybe_unused]] bool something) {
 
 void MainWindow::buttonMessage(QPushButton *button) {
   QMessageBox::information(this, "AHHHHH", button->text());
+  QWidget *w = new QWidget(this, Qt::Window);
+  w->show();
+  w->resize(200, 200);
+  w->raise();
 }
