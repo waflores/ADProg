@@ -45,8 +45,4 @@ void MainWindow::doMessage([[maybe_unused]] bool something) {
 
 void MainWindow::buttonMessage(QPushButton *button) {
   QMessageBox::information(this, "AHHHHH", button->text());
-  QWidget *w = new QWidget(this, Qt::Window);
-  w->show();
-  w->resize(200, 200);
-  w->raise();
 }
