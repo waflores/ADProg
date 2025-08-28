@@ -25,3 +25,6 @@ build:windows --copt=-DWIN32_LEAN_AND_MEAN
 build:windows --copt=-DNOGDI
 build:windows --host_copt=-DWIN32_LEAN_AND_MEAN
 build:windows --host_copt=-DNOGDI
+
+# Permit MODULE.bazel to use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
+common --experimental_isolated_extension_usages
