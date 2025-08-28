@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/ADProg/**",
-                "${workspaceFolder}/bazel-adprog/external/qt_windows_x86_64/include/**"
+                "${workspaceFolder}/bazel-adprog/external/**"
             ],
             "defines": [
                 "_DEBUG",
